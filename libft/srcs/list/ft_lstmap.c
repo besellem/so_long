@@ -6,21 +6,22 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 23:18:30 by besellem          #+#    #+#             */
-/*   Updated: 2021/01/13 14:16:33 by besellem         ###   ########.fr       */
+/*   Updated: 2021/04/19 13:30:29 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_list.h"
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list *list;
-	t_list *new;
+	t_list	*list;
+	t_list	*new;
 
 	list = NULL;
 	while (lst)
 	{
-		if (!(new = ft_lstnew((*f)(lst->content))))
+		new = ft_lstnew((*f)(lst->content));
+		if (!new)
 		{
 			ft_lstclear(&list, del);
 			return (NULL);

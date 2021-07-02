@@ -1,105 +1,98 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 00:56:58 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/13 20:22:22 by besellem         ###   ########.fr       */
+/*   Updated: 2021/07/02 19:36:05 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "so_long.h"
 
-static void	print_ray(t_cub *cub, t_ray *ray)
+struct s_lookup_texture
 {
-	double distance;
+	int	texture_char;
+	int	texture_id;
+};
 
-	distance = ray->distance * cub->cub_size - 1;
-	while (distance > 0)
-	{
-		ft_pixel_put(cub,
-					cub->pos_x * cub->cub_size + cos(ray->angle) * distance,
-					cub->pos_y * cub->cub_size + sin(ray->angle) * distance,
-					0xFFFFFF);
-		--distance;
-	}
-}
-
-/*
-** PRINT PLAYER'S DOT
-*/
-
-static void	print_player(t_cub *cub)
+static t_img	__get_texture__(t_so_long *sl, char c)
 {
-	int size;
-	int i;
-	int j;
-
-	size = cub->cub_size;
-	i = -(size / 2);
-	while (++i < size / 2)
-	{
-		j = -(size / 2);
-		while (++j < size / 2)
-		{
-			ft_pixel_put(cub, cub->pos_x * cub->cub_size + i,
-						cub->pos_y * cub->cub_size + j, 0x808080);
-		}
-	}
-}
-
-static void	put_cub(t_cub *cub, int x, int y, uint32_t color)
-{
-	int i;
-	int j;
+	const struct s_lookup_texture	g_lookup_txtrs[] = {
+		{'1', TXTR_WALL},
+		{'0', TXTR_EMPTY},
+		{'C', TXTR_COLLECTIBLE},
+		{'E', TXTR_EXIT},
+		{'P', TXTR_PLAYER},
+		{0, 0}
+	};
+	int								i;
 
 	i = 0;
-	while (i < cub->cub_size)
+	while (g_lookup_txtrs[i].texture_char)
 	{
-		j = 0;
-		while (j < cub->cub_size)
-		{
-			ft_pixel_put(cub, x * cub->cub_size + i, y * cub->cub_size + j,
-						color);
-			++j;
-		}
+		if (g_lookup_txtrs[i].texture_char == c)
+			return (sl->txtrs[g_lookup_txtrs[i].texture_id]);
 		++i;
+	}
+	return (sl->txtrs[g_lookup_txtrs[0].texture_id]);
+}
+
+static void	__put_texture__(t_so_long *sl, int x, int y, t_img txtr)
+{
+	const double	ratio_x = ((double)sl->win_w / sl->map_size_x) / txtr.x;
+	const double	ratio_y = ((double)sl->win_h / sl->map_size_y) / txtr.y;
+	char			*ptr;
+	int				tx_x;
+	int				tx_y;
+
+	tx_y = 0;
+	while (tx_y < txtr.y)
+	{
+		tx_x = 0;
+		while (tx_x < txtr.x)
+		{
+			ptr = txtr.addr + tx_y * txtr.size_line + tx_x * (txtr.bpp / 8);
+			ft_pixel_put(
+				sl,
+				(x * ((double)sl->win_w / sl->map_size_x)) + (tx_x * ratio_x),
+				(y * ((double)sl->win_h / sl->map_size_y)) + (tx_y * ratio_y),
+				*(uint32_t *)ptr
+				);
+			++tx_x;
+		}
+		++tx_y;
 	}
 }
 
-static void	put_map(t_cub *cub)
+static void	put_map(t_so_long *sl)
 {
-	size_t i;
-	size_t j;
+	const char	**map = (const char **)sl->map;
+	int			x;
+	int			y;
 
-	i = 0;
-	while (i < cub->map_size_y)
+	y = 0;
+	while (map[y])
 	{
-		j = 0;
-		while (j < cub->map_size_x)
+		x = 0;
+		while (map[y][x])
 		{
-			if (cub->map[i][j] != '1' && cub->map[i][j] != ' ')
-				put_cub(cub, j, i, UCOLOR_GREY);
-			else if (cub->map[i][j] == '1')
-				put_cub(cub, j, i, UCOLOR_BLACK);
-			++j;
+			__put_texture__(sl, x, y, __get_texture__(sl, map[y][x]));
+			++x;
 		}
-		++i;
+		++y;
 	}
 }
 
-void		display_minimap(t_cub *cub)
+static void	print_player(t_so_long *sl)
 {
-	int i;
+	__put_texture__(sl, sl->pos_x, sl->pos_y, __get_texture__(sl, 'P'));
+}
 
-	put_map(cub);
-	i = 0;
-	while (i < cub->win_w)
-	{
-		print_ray(cub, &(cub->rays[i]));
-		++i;
-	}
-	print_player(cub);
+void	display_minimap(t_so_long *sl)
+{
+	put_map(sl);
+	print_player(sl);
 }

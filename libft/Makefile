@@ -6,155 +6,241 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/13 02:01:30 by besellem          #+#    #+#              #
-#    Updated: 2021/03/08 00:40:11 by besellem         ###   ########.fr        #
+#    Updated: 2021/06/29 18:21:04 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-MUTE		=	
-NAME		=	libft.a
+NAME		:=	libft.a
+
+## Main directories
+BUILD_DIR	:=	.build
+SRCS_DIR	:=	srcs
+INCS		:=	-I incs
+SUB_DIR		:=	ctype \
+				list \
+				math \
+				stdio \
+				stdlib \
+				string
+OBJ_DIR 	:=	$(BUILD_DIR)/obj
+DIRS		:=	$(OBJ_DIR) $(addprefix $(OBJ_DIR)/, $(SUB_DIR))
+
 
 ## Main srcs
-SRCS_FOLDER	:=	srcs
-
-# char
-SRCS		+=	$(SRCS_FOLDER)/char/ft_isalnum.c \
-				$(SRCS_FOLDER)/char/ft_isalpha.c \
-				$(SRCS_FOLDER)/char/ft_isascii.c \
-				$(SRCS_FOLDER)/char/ft_isdigit.c \
-				$(SRCS_FOLDER)/char/ft_isprint.c \
-				$(SRCS_FOLDER)/char/ft_tolower.c \
-				$(SRCS_FOLDER)/char/ft_toupper.c
-
-# conversion
-SRCS		+=	$(SRCS_FOLDER)/conversion/ft_atod.c \
-				$(SRCS_FOLDER)/conversion/ft_atoi_base.c \
-				$(SRCS_FOLDER)/conversion/ft_atoi.c \
-				$(SRCS_FOLDER)/conversion/ft_atol.c \
-				$(SRCS_FOLDER)/conversion/ft_atold.c \
-				$(SRCS_FOLDER)/conversion/ft_atoll.c \
-				$(SRCS_FOLDER)/conversion/ft_itoa_base.c \
-				$(SRCS_FOLDER)/conversion/ft_itoa.c \
-				$(SRCS_FOLDER)/conversion/ft_nblen_base.c \
-				$(SRCS_FOLDER)/conversion/ft_nblen.c \
-				$(SRCS_FOLDER)/conversion/ft_strtol.c \
-				$(SRCS_FOLDER)/conversion/ft_strtoll.c
-
-# I/O
-SRCS		+=	$(SRCS_FOLDER)/io/ft_putaddr_fd.c \
-				$(SRCS_FOLDER)/io/ft_putaddr.c \
-				$(SRCS_FOLDER)/io/ft_putc_fd.c \
-				$(SRCS_FOLDER)/io/ft_putc.c \
-				$(SRCS_FOLDER)/io/ft_putchar_fd.c \
-				$(SRCS_FOLDER)/io/ft_putchar.c \
-				$(SRCS_FOLDER)/io/ft_putendl_fd.c \
-				$(SRCS_FOLDER)/io/ft_putendl.c \
-				$(SRCS_FOLDER)/io/ft_putn_fd.c \
-				$(SRCS_FOLDER)/io/ft_putn.c \
-				$(SRCS_FOLDER)/io/ft_putnbr_fd.c \
-				$(SRCS_FOLDER)/io/ft_putnbr.c \
-				$(SRCS_FOLDER)/io/ft_putstr_fd.c \
-				$(SRCS_FOLDER)/io/ft_putstr.c \
-				$(SRCS_FOLDER)/io/get_next_line.c
+# ctype
+SUB_SRCS	:=	ft_isalnum.c \
+				ft_isalpha.c \
+				ft_isascii.c \
+				ft_iscntrl.c \
+				ft_isdigit.c \
+				ft_isgraph.c \
+				ft_islower.c \
+				ft_isprint.c \
+				ft_ispunct.c \
+				ft_isspace.c \
+				ft_isupper.c \
+				ft_isxdigit.c \
+				ft_tolower.c \
+				ft_toupper.c
+SRCS		:=	$(addprefix ctype/, $(SUB_SRCS))
 
 # list
-SRCS		+=	$(SRCS_FOLDER)/list/ft_lstadd_back.c \
-				$(SRCS_FOLDER)/list/ft_lstadd_front.c \
-				$(SRCS_FOLDER)/list/ft_lstclear.c \
-				$(SRCS_FOLDER)/list/ft_lstdelone.c \
-				$(SRCS_FOLDER)/list/ft_lstiter.c \
-				$(SRCS_FOLDER)/list/ft_lstlast.c \
-				$(SRCS_FOLDER)/list/ft_lstmap.c \
-				$(SRCS_FOLDER)/list/ft_lstnew.c \
-				$(SRCS_FOLDER)/list/ft_lstsize.c
+SUB_SRCS	:=	ft_lst_qsort.c \
+				ft_lst_sort.c \
+				ft_lst2strs.c \
+				ft_lstadd_back.c \
+				ft_lstadd_front.c \
+				ft_lstclear.c \
+				ft_lstdelone.c \
+				ft_lstindex.c \
+				ft_lstiter.c \
+				ft_lstlast.c \
+				ft_lstmap.c \
+				ft_lstnew.c \
+				ft_lstsize.c
+SRCS		+=	$(addprefix list/, $(SUB_SRCS))
 
 # math
-SRCS		+=	$(SRCS_FOLDER)/math/ft_factorial.c \
-				$(SRCS_FOLDER)/math/ft_find_next_prime.c \
-				$(SRCS_FOLDER)/math/ft_is_prime.c \
-				$(SRCS_FOLDER)/math/ft_power.c
+SUB_SRCS	:=	ft_abs.c \
+				ft_ceil.c \
+				ft_copysign.c \
+				ft_factorial.c \
+				ft_fdim.c \
+				ft_find_next_prime.c \
+				ft_floor.c \
+				ft_fma.c \
+				ft_fmax.c \
+				ft_fmin.c \
+				ft_fmod.c \
+				ft_gcd.c \
+				ft_frexp.c \
+				ft_hypot.c \
+				ft_isinf.c \
+				ft_isnan.c \
+				ft_isprime.c \
+				ft_ldexp.c \
+				ft_lround.c \
+				ft_modf.c \
+				ft_pow.c \
+				ft_round.c \
+				ft_signbit.c \
+				ft_sqrt.c \
+				ft_trunc.c
+SRCS		+=	$(addprefix math/, $(SUB_SRCS))
 
-# memory
-SRCS		+=	$(SRCS_FOLDER)/memory/ft_bzero.c \
-				$(SRCS_FOLDER)/memory/ft_calloc.c \
-				$(SRCS_FOLDER)/memory/ft_memccpy.c \
-				$(SRCS_FOLDER)/memory/ft_memchr.c \
-				$(SRCS_FOLDER)/memory/ft_memcmp.c \
-				$(SRCS_FOLDER)/memory/ft_memcpy.c \
-				$(SRCS_FOLDER)/memory/ft_memmove.c \
-				$(SRCS_FOLDER)/memory/ft_memset.c
+# stdio
+SUB_SRCS	:=	ft_putaddr_fd.c \
+				ft_putaddr.c \
+				ft_putc_fd.c \
+				ft_putc.c \
+				ft_putchar_fd.c \
+				ft_putchar.c \
+				ft_putendl_fd.c \
+				ft_putendl.c \
+				ft_putn_fd.c \
+				ft_putn.c \
+				ft_putnbr_fd.c \
+				ft_putnbr.c \
+				ft_putnstr_fd.c \
+				ft_putnstr.c \
+				ft_putstr_fd.c \
+				ft_putstr.c \
+				get_next_line.c
+SRCS		+=	$(addprefix stdio/, $(SUB_SRCS))
 
-# str
-SRCS		+=	$(SRCS_FOLDER)/str/ft_incharset.c \
-				$(SRCS_FOLDER)/str/ft_strcapitalize.c \
-				$(SRCS_FOLDER)/str/ft_strcasestr.c \
-				$(SRCS_FOLDER)/str/ft_strcat.c \
-				$(SRCS_FOLDER)/str/ft_strchr.c \
-				$(SRCS_FOLDER)/str/ft_strcmp.c \
-				$(SRCS_FOLDER)/str/ft_strcpy.c \
-				$(SRCS_FOLDER)/str/ft_strdup.c \
-				$(SRCS_FOLDER)/str/ft_stridx.c \
-				$(SRCS_FOLDER)/str/ft_strisall.c \
-				$(SRCS_FOLDER)/str/ft_strisalnum.c \
-				$(SRCS_FOLDER)/str/ft_strisalpha.c \
-				$(SRCS_FOLDER)/str/ft_strisascii.c \
-				$(SRCS_FOLDER)/str/ft_strisdigit.c \
-				$(SRCS_FOLDER)/str/ft_strisprint.c \
-				$(SRCS_FOLDER)/str/ft_strjoin.c \
-				$(SRCS_FOLDER)/str/ft_strlcat.c \
-				$(SRCS_FOLDER)/str/ft_strlcpy.c \
-				$(SRCS_FOLDER)/str/ft_strlen.c \
-				$(SRCS_FOLDER)/str/ft_strlowcase.c \
-				$(SRCS_FOLDER)/str/ft_strmapi.c \
-				$(SRCS_FOLDER)/str/ft_strncat.c \
-				$(SRCS_FOLDER)/str/ft_strncmp.c \
-				$(SRCS_FOLDER)/str/ft_strncpy.c \
-				$(SRCS_FOLDER)/str/ft_strndup.c \
-				$(SRCS_FOLDER)/str/ft_strnlen.c \
-				$(SRCS_FOLDER)/str/ft_strnstr.c \
-				$(SRCS_FOLDER)/str/ft_stroc.c \
-				$(SRCS_FOLDER)/str/ft_strpbrk.c \
-				$(SRCS_FOLDER)/str/ft_strrchr.c \
-				$(SRCS_FOLDER)/str/ft_strstr.c \
-				$(SRCS_FOLDER)/str/ft_strtrim.c \
-				$(SRCS_FOLDER)/str/ft_strupcase.c \
-				$(SRCS_FOLDER)/str/ft_substr.c
+# printf
+PRINTF_SRCS	=	$(SRCS_DIR)/stdio/ft_printf/*/*.c
 
-# strs
-SRCS		+=	$(SRCS_FOLDER)/strs/ft_split.c \
-				$(SRCS_FOLDER)/strs/ft_strsjoin.c \
-				$(SRCS_FOLDER)/strs/ft_strsplit.c
+# stdlib
+SUB_SRCS	:=	ft_atod.c \
+				ft_atoi_base.c \
+				ft_atoi.c \
+				ft_atol.c \
+				ft_atold.c \
+				ft_atoll.c \
+				ft_calloc.c \
+				ft_itoa_base.c \
+				ft_itoa.c \
+				ft_nblen_base.c \
+				ft_nblen.c \
+				ft_random.c \
+				ft_strtol.c \
+				ft_strtoll.c
+SRCS		+=	$(addprefix stdlib/, $(SUB_SRCS))
+
+# string
+SUB_SRCS	:=	ft_bcmp.c \
+				ft_bcopy.c \
+				ft_bzero.c \
+				ft_incharset.c \
+				ft_index.c \
+				ft_memccpy.c \
+				ft_memchr.c \
+				ft_memcmp.c \
+				ft_memcpy.c \
+				ft_memdel.c \
+				ft_memmove.c \
+				ft_memset.c \
+				ft_rindex.c \
+				ft_split.c \
+				ft_strcapitalize.c \
+				ft_strcasestr.c \
+				ft_strcat.c \
+				ft_strchr.c \
+				ft_strclean.c \
+				ft_strcmp.c \
+				ft_strcpy.c \
+				ft_strdup.c \
+				ft_stridx.c \
+				ft_strisall.c \
+				ft_strisalnum.c \
+				ft_strisalpha.c \
+				ft_strisascii.c \
+				ft_strisdigit.c \
+				ft_strisprint.c \
+				ft_strjoin.c \
+				ft_strlcat.c \
+				ft_strlcpy.c \
+				ft_strlen.c \
+				ft_strlowcase.c \
+				ft_strmapi.c \
+				ft_strncat.c \
+				ft_strnclean.c \
+				ft_strncmp.c \
+				ft_strncpy.c \
+				ft_strndup.c \
+				ft_strnlen.c \
+				ft_strnstr.c \
+				ft_stroc.c \
+				ft_strpbrk.c \
+				ft_strrchr.c \
+				ft_strsfree.c \
+				ft_strsjoin.c \
+				ft_strslen.c \
+				ft_strsplit.c \
+				ft_strstr.c \
+				ft_strtrim.c \
+				ft_strupcase.c \
+				ft_substr.c \
+				ft_trn.c \
+				ft_trni.c \
+				ft_trnu.c
+SRCS		+=	$(addprefix string/, $(SUB_SRCS))
 
 
 ## Objects
-OBJS		=	$(SRCS:.c=.o)
+PRINTF_OBJS	:=	$(PRINTF_SRCS:.c=.o)
+OBJS 		:=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 
-## Include
-INCS			=	incs
 
 ## Commands
-CC			=	clang
-CFLAGS		=	-Wall -Wextra -Werror
-LIBC		=	ar rc
-RM			=	rm -f
+CC			:=	clang
+CFLAGS		:=	-Wall -Wextra -Werror
+LIBC		:=	ar rc
+RM			:=	rm -f
 
-.c.o:
-			$(MUTE) $(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCS)
 
+# Colors
+CLR_COLOR	:= \033[0m
+RED			:= \033[1;31m
+GREEN		:= \033[1;32m
+YELLOW		:= \033[1;33m
+BLUE		:= \033[1;34m
+CYAN 		:= \033[1;36m
+
+
+## Compilation
 $(NAME):	$(OBJS)
-			$(MUTE) $(MAKE) -C $(SRCS_FOLDER)/io/ft_printf
-			$(MUTE) cp $(SRCS_FOLDER)/io/ft_printf/libftprintf.a ./$(NAME)
-			$(MUTE) $(LIBC) $(NAME) $(OBJS)
+			@ echo "Compiling $(RED)ft_printf $(CLR_COLOR)..."
+			@ $(MAKE) -C $(SRCS_DIR)/stdio/ft_printf >/dev/null
+			@ echo "Creating $(RED)$(NAME) $(CLR_COLOR)..."
+			@ $(LIBC) $(NAME) $(OBJS) $(PRINTF_OBJS)
+			@ echo "$(GREEN)Compilation $(YELLOW)of $(RED)$@ $(BLUE)done$(CLR_COLOR)"
 
 all:		$(NAME)
 
+bonus:		all
+
 clean:
-			$(MUTE) $(MAKE) -C $(SRCS_FOLDER)/io/ft_printf clean
-			$(MUTE) $(RM) $(OBJS)
+			@ echo "Deleting $(CYAN)libft's $(CLR_COLOR)objs ..."
+			@ $(MAKE) -C $(SRCS_DIR)/stdio/ft_printf clean >/dev/null
+			@ $(RM) $(OBJS)
+			@ rm -rf $(BUILD_DIR)
 
 fclean:		clean
-			$(MUTE) $(MAKE) -C $(SRCS_FOLDER)/io/ft_printf fclean
-			$(MUTE) $(RM) $(NAME)
+			@ echo "Deleting $(CYAN)libft $(CLR_COLOR)library ..."
+			@ $(MAKE) -C $(SRCS_DIR)/stdio/ft_printf fclean >/dev/null
+			@ $(RM) $(NAME)
 
 re:			fclean all
 
-.PHONY:		$(NAME) all clean fclean re
+$(BUILD_DIR):
+			@ echo "Creating $(RED)$@ $(CLR_COLOR)..."
+			@ mkdir $@ $(DIRS)
+
+$(OBJ_DIR)/%.o:$(SRCS_DIR)/%.c | $(BUILD_DIR)
+			@ echo "Compiling $(YELLOW)$< $(CLR_COLOR)..."
+			@ $(CC) $(CFLAGS) -c $< -o $@ $(INCS)
+# @ $(CC) $(CFLAGS) -c $< -o $@ $(INCS) -D LIBC_NO_CRASH_ON_NULL=0
+
+.PHONY:		all bonus clean fclean re

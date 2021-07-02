@@ -6,52 +6,73 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 14:18:26 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/08 11:24:04 by besellem         ###   ########.fr       */
+/*   Updated: 2021/07/02 19:11:45 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "so_long.h"
 
-int	handle_key_press(int key, t_cub *cub)
+struct s_tmp_keys
 {
-	if (key == KEY_ESC)
-		ft_quit(cub);
-	else if (key == KEY_W && cub->keys.key_s == 0 && (cub->dh = 1))
-		cub->keys.key_w = 1;
-	else if (key == KEY_S && cub->keys.key_w == 0 && (cub->dh = -1))
-		cub->keys.key_s = 1;
-	else if (key == KEY_D && cub->keys.key_a == 0 && (cub->dw = 1))
-		cub->keys.key_d = 1;
-	else if (key == KEY_A && cub->keys.key_d == 0 && (cub->dw = -1))
-		cub->keys.key_a = 1;
-	else if (key == KEY_LEFT && cub->keys.key_right == 0 && (cub->turn = -1))
-		cub->keys.key_left = 1;
-	else if (key == KEY_RIGHT && cub->keys.key_left == 0 && (cub->turn = 1))
-		cub->keys.key_right = 1;
-	else if (BONUS && key == KEY_F && cub->gun.gun_status == 0)
-		cub->gun.gun_status = -1;
-	else
-		return (1);
-	return (0);
+	char	*key_name;
+	int		key_code;
+	int		x;
+	int		y;
+};
+
+const struct s_tmp_keys	g_keys[] = {
+	{"up", KEY_W, 0, -1},
+	{"down", KEY_S, 0, 1},
+	{"right", KEY_D, 1, 0},
+	{"left", KEY_A, -1, 0},
+	{NULL, -1, 0, 0}
+};
+
+static void	__move_player__(t_so_long *sl, const struct s_tmp_keys key)
+{
+	if ((sl->pos_x + key.x) >= 0 && (sl->pos_x + key.x) < sl->map_size_x
+		&& (sl->pos_y + key.y) >= 0 && (sl->pos_y + key.y) < sl->map_size_y)
+	{
+		if ('1' != sl->map[sl->pos_y + key.y][sl->pos_x + key.x])
+		{
+			if ('C' == sl->map[sl->pos_y + key.y][sl->pos_x + key.x])
+			{
+				sl->collectibles--;
+				sl->map[sl->pos_y + key.y][sl->pos_x + key.x] = '0';
+			}
+			sl->pos_x += key.x;
+			sl->pos_y += key.y;
+			sl->move_nbr++;
+		}
+	}
+	ft_printf("move #%d: %s\n", sl->move_nbr, key.key_name);
 }
 
-int	handle_key_release(int key, t_cub *cub)
+int	handle_key_press(int key, t_so_long *sl)
 {
-	if (key == KEY_W && !(cub->keys.key_w = 0) && cub->keys.key_s == 0)
-		cub->dh = 0;
-	else if (key == KEY_S && !(cub->keys.key_s = 0) && cub->keys.key_w == 0)
-		cub->dh = 0;
-	else if (key == KEY_D && !(cub->keys.key_d = 0) && cub->keys.key_a == 0)
-		cub->dw = 0;
-	else if (key == KEY_A && !(cub->keys.key_a = 0) && cub->keys.key_d == 0)
-		cub->dw = 0;
-	else if (key == KEY_LEFT && !(cub->keys.key_left = 0) &&
-			cub->keys.key_right == 0)
-		cub->turn = 0;
-	else if (key == KEY_RIGHT && !(cub->keys.key_right = 0) &&
-			cub->keys.key_left == 0)
-		cub->turn = 0;
-	else
-		return (1);
+	int	i;
+
+	if (KEY_ESC == key)
+	{
+		ft_quit(sl);
+		return (0);
+	}
+	i = 0;
+	while (g_keys[i].key_code != -1)
+	{
+		if (key == g_keys[i].key_code)
+		{
+			__move_player__(sl, g_keys[i]);
+			return (0);
+		}
+		++i;
+	}
+	return (1);
+}
+
+int	handle_key_release(int key, t_so_long *sl)
+{
+	(void)key;
+	(void)sl;
 	return (0);
 }

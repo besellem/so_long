@@ -6,11 +6,11 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 23:17:12 by besellem          #+#    #+#             */
-/*   Updated: 2020/09/13 23:19:52 by besellem         ###   ########.fr       */
+/*   Updated: 2021/04/19 13:30:41 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_list.h"
 
 int	ft_lstsize(t_list *lst)
 {
@@ -21,8 +21,8 @@ int	ft_lstsize(t_list *lst)
 	i = 0;
 	while (tmp)
 	{
-		++i;
 		tmp = tmp->next;
+		++i;
 	}
 	return (i);
 }
