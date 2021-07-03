@@ -6,14 +6,14 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 21:31:15 by besellem          #+#    #+#             */
-/*   Updated: 2021/07/02 19:38:44 by besellem         ###   ########.fr       */
+/*   Updated: 2021/07/04 00:11:28 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#define INITIAL_WIDTH  480
-#define INITIAL_HEIGHT 320
+#define INITIAL_WIDTH  800
+#define INITIAL_HEIGHT 800
 
 #define TEXTURE_WALL        "./assets/stone.xpm"
 #define TEXTURE_EMPTY       "./assets/floor.xpm"
