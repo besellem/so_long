@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/09 20:27:25 by besellem          #+#    #+#              #
-#    Updated: 2021/07/04 01:07:08 by besellem         ###   ########.fr        #
+#    Updated: 2021/07/04 01:08:08 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -127,6 +127,7 @@ clean:
 			@echo "Cleaning $(CYAN)Libft$(CLR_COLOR) objects ..."
 			@$(MAKE) -C libft clean >/dev/null
 			@echo "Cleaning $(CYAN)mlx$(CLR_COLOR) objects ..."
+			@$(MAKE) -C mlx clean >/dev/null
 			@$(MAKE) -C mlx_linux clean >/dev/null
 			@$(RM) $(OBJS)
 
