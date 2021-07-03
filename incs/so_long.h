@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 19:56:20 by besellem          #+#    #+#             */
-/*   Updated: 2021/07/02 19:41:47 by besellem         ###   ########.fr       */
+/*   Updated: 2021/07/04 00:45:29 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@
 #  define EVT_RED_CROSS 33
 # endif
 
-#define _ERR() printf(B_RED "%s:%d: "ERR""CLR_COLOR"\n", __FILE__, __LINE__);
-
 /*
 ** Bonus Macros
 ** Defined at compile time if wanted / needed
@@ -104,7 +102,6 @@ typedef struct s_sounds
 }				t_sounds;
 
 /*
-** life:			between 0 and 100
 ** win_w:			resolution width (if > screen, is truncated)
 ** win_h:			resolution height (if > screen, is truncated)
 ** cub_size:		size of a cube in pixels (for the minimap only)
@@ -120,7 +117,6 @@ typedef struct s_sounds
 */
 typedef struct s_so_long
 {
-	int8_t		life;
 	int			win_w;
 	int			win_h;
 	int			cub_size;

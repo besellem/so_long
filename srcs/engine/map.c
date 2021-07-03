@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_bonus.c                                    :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 00:56:58 by besellem          #+#    #+#             */
-/*   Updated: 2021/07/04 00:18:09 by besellem         ###   ########.fr       */
+/*   Updated: 2021/07/04 00:43:06 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,6 @@ static t_img	__get_texture__(t_so_long *sl, char c)
 	return (sl->txtrs[g_lookup_txtrs[0].texture_id]);
 }
 
-// static void	__put_texture__(t_so_long *sl, int x, int y, t_img txtr)
-// {
-// 	const double	ratio_x = ((double)sl->win_w / sl->map_size_x) / txtr.x;
-// 	const double	ratio_y = ((double)sl->win_h / sl->map_size_y) / txtr.y;
-// 	int				tx_x;
-// 	int				tx_y;
-// 	char			*ptr;
-
-// 	tx_y = 0;
-// 	while (tx_y < txtr.y)
-// 	{
-// 		tx_x = 0;
-// 		while (tx_x < txtr.x)
-// 		{
-// 			ptr = txtr.addr + tx_y * txtr.size_line + tx_x * (txtr.bpp / 8);
-// 			ft_pixel_put(
-// 				sl,
-// 				(x * ((double)sl->win_w / sl->map_size_x)) + (tx_x * ratio_x),
-// 				(y * ((double)sl->win_h / sl->map_size_y)) + (tx_y * ratio_y),
-// 				*(uint32_t *)ptr
-// 				);
-// 			++tx_x;
-// 		}
-// 		++tx_y;
-// 	}
-// }
-
 static void	__put_texture__(t_so_long *sl, int x, int y, t_img txtr)
 {
 	const double	ratio_x = ((double)sl->win_w / sl->map_size_x);
@@ -81,7 +54,7 @@ static void	__put_texture__(t_so_long *sl, int x, int y, t_img txtr)
 		tx_x = 0.0;
 		while (tx_x < ratio_x)
 		{
-			ptr = txtr.addr; 
+			ptr = txtr.addr;
 			ptr += (size_t)((tx_y / ratio_y) * txtr.y) * txtr.size_line;
 			ptr += (size_t)((tx_x / ratio_x) * txtr.x) * (txtr.bpp / 8);
 			ft_pixel_put(
