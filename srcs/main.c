@@ -21,7 +21,7 @@ void	ft_mlx_start(t_so_long *sl)
 			&sl->img.bpp,
 			&sl->img.size_line,
 			&sl->img.endian);
-	print_specs(sl);
+	print_map(sl);
 	update_frame(sl);
 	mlx_hook(sl->win, 2, (1L << 0), handle_key_press, sl);
 	mlx_hook(sl->win, 3, (1L << 1), handle_key_release, sl);

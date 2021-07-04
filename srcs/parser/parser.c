@@ -74,7 +74,7 @@ int	ft_parse(t_so_long *sl, char *path)
 {
 	__init_sl__(sl);
 	if (!is_extension(path, ".ber"))
-		ft_error("not a .ber file", NULL, NULL, 0);
+		ft_error("not a .ber file", sl, NULL, 0);
 	if (FALSE == parse_map(sl, path))
 		return (FALSE);
 	sl->mlx = mlx_init();

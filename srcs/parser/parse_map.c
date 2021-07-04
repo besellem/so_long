@@ -111,9 +111,9 @@ int	parse_map(t_so_long *sl, const char *path)
 
 	ft_bzero(&valid, sizeof(struct s_map_validate));
 	if (FALSE == __get_map__(sl, path))
-		ft_error("cannot parse the file", NULL, NULL, 0);
+		ft_error("cannot parse the file", sl, NULL, 0);
 	if (FALSE == __check_map__(sl) || FALSE == __map_validator__(sl, valid))
-		ft_error("not a valid map", NULL, NULL, 0);
+		ft_error("not a valid map", sl, NULL, 0);
 	sl->map_size_x = ft_strlen(*sl->map);
 	sl->map_size_y = ft_strslen(sl->map);
 	return (TRUE);

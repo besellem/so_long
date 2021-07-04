@@ -137,7 +137,6 @@ typedef struct s_so_long
 ** -- PROTOTYPES --
 ** Common
 */
-void			print_specs(t_so_long *sl);
 void			print_map(t_so_long *sl);
 int				ft_save(t_so_long *sl);
 

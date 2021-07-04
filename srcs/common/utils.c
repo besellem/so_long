@@ -46,19 +46,5 @@ void	print_map(t_so_long *sl)
 		write(1, "\n", 1);
 		++y;
 	}
-}
-
-void	print_specs(t_so_long *sl)
-{
-	ft_printf("-- Specs --\n");
-	ft_printf("{\n");
-	ft_printf("    Window width:    %d\n", sl->win_w);
-	ft_printf("    Window height:   %d\n", sl->win_h);
-	ft_printf("    Map size (x):    %zu\n", sl->map_size_x);
-	ft_printf("    Map size (y):    %zu\n", sl->map_size_y);
-	ft_printf("    Player pos (x):  %d\n", sl->pos_x);
-	ft_printf("    Player pos (y):  %d\n", sl->pos_y);
-	ft_printf("}\n\n");
-	print_map(sl);
-	ft_printf("\n----\n\n");
+	write(1, "\n", 1);
 }
